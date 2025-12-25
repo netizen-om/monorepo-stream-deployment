@@ -1,0 +1,30 @@
+# Dependencies (MANDATORY)
+node_modules
+**/node_modules
+.bun
+.bun-cache
+
+# Build outputs
+dist
+build
+.next
+.out
+coverage
+
+# Turborepo
+.turbo
+
+# Git
+.git
+.gitignore
+
+# Env
+.env
+.env.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

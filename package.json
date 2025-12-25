@@ -3,6 +3,11 @@
   "private": true,
   "scripts": {
     "build": "turbo run build",
+    "start:web": "cd apps/web && bun run start",
+    "start:build": "cd apps/web && bun run build",
+    "start:backend": "cd apps/backend && bun run start",
+    "start:ws": "cd apps/websocket && bun run start",
+    "db:generate": "cd packages/db && bunx prisma generate",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",

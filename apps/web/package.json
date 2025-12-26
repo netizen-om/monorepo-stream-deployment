@@ -1,29 +1,38 @@
 {
   "name": "web",
   "version": "0.1.0",
-  "type": "module",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 3000",
+    "dev": "next dev",
     "build": "next build",
+    "start:web": "cd apps/web && bun run start",
+    "db:push": "cd ../../packages/db && bunx prisma db push && cd ../..",
     "start": "next start",
-    "lint": "eslint --max-warnings 0",
-    "check-types": "next typegen && tsc --noEmit"
+    "lint": "eslint"
   },
   "dependencies": {
-    "@repo/ui": "*",
-    "next": "16.1.0",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
-    "db": "*"
+    "next": "15.1.3",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "@repo/db": "*"
   },
   "devDependencies": {
-    "@repo/eslint-config": "*",
-    "@repo/typescript-config": "*",
-    "@types/node": "^22.15.3",
-    "@types/react": "19.2.2",
-    "@types/react-dom": "19.2.2",
-    "eslint": "^9.39.1",
-    "typescript": "5.9.2"
-  }
+    "@types/node": "^20",
+    "@types/react": "18.3.1",
+    "@types/react-dom": "18.3.1",
+    "autoprefixer": "^10.4.23",
+    "eslint": "^8",
+    "eslint-config-next": "15.1.3",
+    "postcss": "^8",
+    "tailwindcss": "^4.1.18",
+    "typescript": "^5"
+  },
+  "ignoreScripts": [
+    "sharp",
+    "unrs-resolver"
+  ],
+  "trustedDependencies": [
+    "sharp",
+    "unrs-resolver"
+  ]
 }

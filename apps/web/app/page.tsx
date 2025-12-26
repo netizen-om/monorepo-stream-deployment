@@ -1,14 +1,11 @@
-import { prismaClient } from "db/client";
-
+import { getUser } from "./action/user-action";
 
 export default async function Home() {
-  const user = await prismaClient.user.findMany();
-
+    const users = await getUser();
   return (
     <div>
-      {JSON.stringify(user)}
+        USERS : 
+        {JSON.stringify(users)}
     </div>
-  )
+  );
 }
-
-export const dynamic = "force-dynamic"

@@ -1,22 +1,36 @@
-FROM oven/bun:alpine
+# =========================
+# 1️⃣ Builder stage
+# =========================
+FROM oven/bun:alpine AS builder
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 ARG DATABASE_URL
+ENV DATABASE_URL=$DATABASE_URL
 
-COPY ./packages ./packages
-COPY ./bun.lock ./bun.lock
-
-COPY ./package.json ./package.json
-COPY ./turbo.json ./turbo.json
-
-COPY ./apps/web ./apps/web
+COPY package.json bun.lock turbo.json ./
+COPY packages ./packages
+COPY packages/db ./packages/db
+COPY apps/web ./apps/web
 
 RUN bun install
-RUN cd packages/db && bunx prisma db push
-RUN cd packages/db && bunx prisma generate
-RUN DATABASE_URL=${DATABASE_URL} bun run build
+RUN cd packages/db && bunx prisma migrate dev
+RUN bun run build
+
+
+# =========================
+# 2️⃣ Runtime stage (small)
+# =========================
+FROM oven/bun:alpine
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Copy ONLY what is needed to run
+COPY --from=builder /app/apps/web/.next ./.next
+COPY --from=builder /app/apps/web/public ./public
+COPY --from=builder /app/apps/web/package.json ./package.json
 
 EXPOSE 3000
-
-CMD [ "bun", "run", "start:web" ]
+CMD ["bun", "run", "start:web"]

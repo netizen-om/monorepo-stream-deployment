@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start:web": "cd apps/web && bun run start",
+    "start:web": "bun run start",
     "db:push": "cd ../../packages/db && bunx prisma db push && cd ../..",
     "start": "next start",
     "lint": "eslint"

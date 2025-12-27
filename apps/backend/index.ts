@@ -1,5 +1,5 @@
 import express from "express";
-import { prismaClient } from "db/client";
+import { prismaClient } from "@repo/db/client";
 
 const app = express();
 
